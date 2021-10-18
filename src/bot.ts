@@ -28,8 +28,10 @@ class Bot {
     this.qq = config.qq
   }
 
-  async start() {
+  async start(cb: () => any = () => {}) {
     await this.link()
+
+    cb()
 
     this.listen()
 
@@ -47,6 +49,58 @@ class Bot {
     cb: (ctx: ChatContext<T>) => any
   ): void {
     this.mirai.on(type, cb)
+  }
+
+  async getFriendList() {
+    return await this.mirai.api.friendList()
+  }
+
+  async getGroupList() {
+    return await this.mirai.api.groupList()
+  }
+
+  async getMemberList(target: number) {
+    return await this.mirai.api.memberList(target)
+  }
+
+  async sendFriend(
+    messageChain: string | MessageType.MessageChain,
+    target: number,
+    quote?: number
+  ) {
+    this.mirai.api.sendFriendMessage(messageChain, target, quote)
+  }
+
+  async sendGroup(
+    messageChain: string | MessageType.MessageChain,
+    target: number,
+    quote?: number
+  ) {
+    this.mirai.api.sendGroupMessage(messageChain, target, quote)
+  }
+
+  async sendNudge(
+    target: number,
+    subject: number,
+    kind?: 'Friend' | 'Group' | 'Stranger'
+  ) {
+    this.mirai.api.sendNudge(target, subject, kind)
+  }
+
+  async mute(target: number, memberId: number, time?: number) {
+    await this.mirai.api.mute(target, memberId, time)
+  }
+
+  async unmute(target: number, memberId: number) {
+    await this.mirai.api.unmute(target, memberId)
+  }
+
+  async muteAll(target: number) {
+    await this.mirai.api.muteAll(target)
+  }
+
+  async unmuteAll(target: number) {
+    await this.mirai.api.unmuteAll(target)
   }
 
   listen() {

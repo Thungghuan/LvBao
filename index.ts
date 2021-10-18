@@ -14,8 +14,8 @@ const botConfig: BotConfig = {
 
 const bot = createBot(botConfig)
 
-bot.on('message', (ctx) => {
-  console.log(ctx)
+bot.on('message', async (ctx) => {
+  // console.log(ctx)
   ctx.reply(ctx.messageChain)
 })
 
