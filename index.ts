@@ -1,27 +1,22 @@
-import Mirai, { MiraiApiHttpSetting } from 'mirai-ts'
+import { createBot, BotSetting, BotConfig } from './src'
 import config from './config'
-import fs from 'fs'
-import path from 'path'
-import yaml from 'js-yaml'
+import { loadSetting } from './utils'
 
 const { qq, settingFile } = config
 
 // disable proxy for axios
 process.env.http_proxy = ''
 
-const setting = yaml.load(
-  fs.readFileSync(path.resolve(__dirname, settingFile), 'utf8')
-) as MiraiApiHttpSetting
-
-const mirai = new Mirai(setting)
-
-const app = async () => {
-  await mirai.link(qq)
-  mirai.on('message', (msg) => {
-    console.log(msg)
-    msg.reply(msg.messageChain)
-  })
-  mirai.listen()
+const botConfig: BotConfig = {
+  qq,
+  setting: loadSetting(settingFile) as BotSetting
 }
 
-app()
+const bot = createBot(botConfig)
+
+bot.on('message', (ctx) => {
+  console.log(ctx)
+  ctx.reply(ctx.messageChain)
+})
+
+bot.start()
