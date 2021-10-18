@@ -1,0 +1,32 @@
+{
+  "name": "lvbao",
+  "version": "1.0.0",
+  "description": "A QQ bot based on mirai and mirai-ts",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thungghuan/LvBao.git"
+  },
+  "author": "Thungghuan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Thungghuan/LvBao/issues"
+  },
+  "homepage": "https://github.com/Thungghuan/LvBao#readme",
+  "dependencies": {
+    "ts-node": "^10.3.0",
+    "typescript": "^4.4.4"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.0.1",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.24.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0"
+  }
+}
