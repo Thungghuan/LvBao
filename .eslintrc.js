@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   env: {
     es2021: true,
     node: true
@@ -10,5 +10,7 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: ['@typescript-eslint'],
-  rules: {}
+  rules: {
+    'space-before-function-paren': 'off'
+  }
 }
