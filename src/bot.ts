@@ -1,4 +1,4 @@
-import { createAPI } from './api'
+import { createAPI } from './http'
 
 export type BotSetting = {
   verifyKey: string
@@ -38,7 +38,9 @@ class Bot {
 
     this.listen()
 
-    this.api.release()
+    process.on('exit', () => {
+      this.api.release()
+    })
   }
 
   async link() {
@@ -49,5 +51,9 @@ class Bot {
 
   on() {}
 
-  listen() {}
+  listen() {
+    setInterval(async () => {
+      console.log(await this.api.fetchMessage())
+    }, 3000)
+  }
 }

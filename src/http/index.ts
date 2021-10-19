@@ -2,10 +2,10 @@ import { BotConfig, BotSetting } from '..'
 import { createAxios } from './axios'
 
 export const createAPI = (config: BotConfig) => {
-  return new API(config)
+  return new HttpApi(config)
 }
 
-class API {
+class HttpApi {
   qq: number
   botSetting: BotSetting
 
@@ -56,6 +56,22 @@ class API {
       sessionKey: this.sessionKey,
       qq: this.qq
     })
+    return data
+  }
+
+  async countMessage() {
+    const { data } = await this.axios.get<{
+      code: number
+      msg: string
+      data: number
+    }>(`/countMessage?sessionKey=${this.sessionKey}`)
+    return data
+  }
+
+  async fetchMessage(count: number = 2) {
+    const { data } = await this.axios.get(
+      `/fetchMessage?sessionKey=${this.sessionKey}&count=${count}`
+    )
     return data
   }
 }
