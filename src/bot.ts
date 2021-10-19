@@ -37,6 +37,8 @@ class Bot {
     cb()
 
     this.listen()
+
+    this.api.release()
   }
 
   async link() {

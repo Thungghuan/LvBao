@@ -47,4 +47,15 @@ export default class API {
     })
     return data
   }
+
+  async release() {
+    const { data } = await this.axios.post<{
+      code: Number
+      msg: string
+    }>('/release', {
+      sessionKey: this.sessionKey,
+      qq: this.qq
+    })
+    return data
+  }
 }
