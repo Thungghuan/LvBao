@@ -1,4 +1,15 @@
-export type BotSetting = {}
+import API, { createAPI } from './api'
+
+export type BotSetting = {
+  verifyKey: string
+  adapterSettings: {
+    http: {
+      host: string
+      port?: number
+    }
+  }
+}
+
 export type BotConfig = {
   setting: BotSetting
   qq: number
@@ -11,21 +22,27 @@ export const createBot = (config: BotConfig) => {
 class Bot {
   mirai: {}
   qq: number
+  api: API
 
   constructor(config: BotConfig) {
     this.mirai = config
     this.qq = config.qq
+
+    this.api = createAPI(config)
   }
 
   async start(cb: () => any = () => {}) {
-    this.link()
+    await this.link()
 
     cb()
 
     this.listen()
   }
 
-  link() {}
+  async link() {
+    this.api.verify()
+
+  }
 
   on() {}
 
