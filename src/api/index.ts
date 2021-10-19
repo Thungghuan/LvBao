@@ -1,5 +1,5 @@
 import { BotConfig, BotSetting } from '..'
-import axios from './axios'
+import { createAxios, Axios } from './axios'
 
 export const createAPI = (config: BotConfig) => {
   return new API(config)
@@ -8,7 +8,8 @@ export const createAPI = (config: BotConfig) => {
 export default class API {
   qq: number
   botSetting: BotSetting
-  baseURL: string
+
+  axios: Axios
   verifyKey: string
   sessionKey = ''
 
@@ -19,38 +20,31 @@ export default class API {
 
     const { host, port } = this.botSetting.adapterSettings.http
 
-    this.baseURL = `http://${host}:${port || 80}`
+    this.axios = createAxios({
+      baseURL: `http://${host}:${port || 80}`,
+      proxy: false
+    })
   }
 
-  verify() {
-    axios
-      .post<{
-        code: number
-        session: string
-      }>(this.baseURL + '/verify', {
-        verifyKey: this.verifyKey
-      })
-      .then((res) => {
-        console.log(res.data)
-        this.sessionKey = res.data.session
-        this.bind()
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+  async verify() {
+    const { data } = await this.axios.post<{
+      code: number
+      session: string
+    }>('/verify', {
+      verifyKey: this.verifyKey
+    })
+    this.sessionKey = data.session
+    return data
   }
 
-  bind() {
-    axios
-      .post(this.baseURL + '/bind', {
-        sessionKey: this.sessionKey,
-        qq: this.qq
-      })
-      .then((res) => {
-        console.log(res.data)
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+  async bind() {
+    const { data } = await this.axios.post<{
+      code: number
+      msg: string
+    }>('/bind', {
+      sessionKey: this.sessionKey,
+      qq: this.qq
+    })
+    return data
   }
 }

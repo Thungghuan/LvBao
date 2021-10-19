@@ -40,8 +40,9 @@ class Bot {
   }
 
   async link() {
-    this.api.verify()
+    await this.api.verify()
 
+    console.log(await this.api.bind())
   }
 
   on() {}
