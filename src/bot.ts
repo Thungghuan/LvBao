@@ -1,4 +1,4 @@
-import API, { createAPI } from './api'
+import { createAPI } from './api'
 
 export type BotSetting = {
   verifyKey: string
@@ -22,7 +22,7 @@ export const createBot = (config: BotConfig) => {
 class Bot {
   mirai: {}
   qq: number
-  api: API
+  api: ReturnType<typeof createAPI>
 
   constructor(config: BotConfig) {
     this.mirai = config

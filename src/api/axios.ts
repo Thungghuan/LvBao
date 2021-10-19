@@ -1,6 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
-
-export type Axios = AxiosInstance
+import axios, {  AxiosRequestConfig } from 'axios'
 
 export const createAxios = (config?: AxiosRequestConfig) => {
   const instance = axios.create(config)

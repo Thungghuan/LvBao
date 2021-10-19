@@ -1,15 +1,15 @@
 import { BotConfig, BotSetting } from '..'
-import { createAxios, Axios } from './axios'
+import { createAxios } from './axios'
 
 export const createAPI = (config: BotConfig) => {
   return new API(config)
 }
 
-export default class API {
+class API {
   qq: number
   botSetting: BotSetting
 
-  axios: Axios
+  axios: ReturnType<typeof createAxios>
   verifyKey: string
   sessionKey = ''
 
