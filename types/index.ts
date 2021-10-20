@@ -1,3 +1,5 @@
+import { Context } from "../src/context"
+
 export type BotSetting = {
   verifyKey: string
   adapterSettings: {
@@ -13,11 +15,12 @@ export type BotConfig = {
   qq: number
 }
 
-export type MessageType = 'message' | 'FriendMessage'
+export type MessageType = 'message' | 'FriendMessage' | 'GroupMessage'
 
 export type SingleMessage = any
 export type MessageChain = SingleMessage[]
-export interface Context {
+
+export interface Message {
   type: MessageType
   messageChain: MessageChain
   sender: {
@@ -29,5 +32,5 @@ export interface Context {
 
 export interface EventListener {
   eventName: MessageType
-  handler(ctx: any): any
+  handler(ctx: Context): any
 }

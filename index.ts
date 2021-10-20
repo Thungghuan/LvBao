@@ -17,13 +17,13 @@ const bot = createBot(botConfig)
 
 bot.on('FriendMessage', (ctx) => {
   console.log(
-    `From: ${ctx.sender.nickname}(${ctx.sender.id}): ${ctx.messageChain[1].text}`
+    `From: ${ctx.message.sender.nickname}(${ctx.message.sender.id}): ${ctx.message.messageChain[1].text}`
   )
 
-  bot.send(ctx.sender.id, ctx.messageChain)
+  bot.send(ctx.message.sender.id, ctx.message.messageChain)
 
   console.log(
-    `To: ${ctx.sender.nickname}(${ctx.sender.id}): ${ctx.messageChain[1].text}`
+    `To: ${ctx.message.sender.nickname}(${ctx.message.sender.id}): ${ctx.message.messageChain[1].text}`
   )
 })
 

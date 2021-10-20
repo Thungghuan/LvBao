@@ -2,10 +2,10 @@ import { createAPI } from './http'
 import {
   BotConfig,
   MessageType,
-  Context,
   EventListener,
   MessageChain
 } from '../types'
+import { createContext, Context } from './context'
 
 export const createBot = (config: BotConfig) => {
   return new Bot(config)
@@ -56,7 +56,10 @@ class Bot {
 
   handler(ctx: Context) {
     this.eventListeners
-      .filter((listener) => listener.eventName === ctx.type)
+      .filter(
+        (listener) =>
+          listener.eventName === ctx.message.type || listener.eventName === 'message'
+      )
       .map((listener) => listener.handler)
       .forEach((handler) => handler(ctx))
   }
@@ -65,8 +68,8 @@ class Bot {
     setInterval(async () => {
       const { data } = await this.api.fetchMessage()
 
-      data.forEach((ctx) => {
-        this.handler(ctx)
+      data.forEach((mes) => {
+        this.handler(createContext(mes))
       })
     }, 300)
   }
