@@ -1,4 +1,4 @@
-import { BotConfig, BotSetting, Context } from '../../types'
+import { BotConfig, BotSetting, Context, MessageChain } from '../../types'
 import { createAxios } from './axios'
 
 export const createAPI = (config: BotConfig) => {
@@ -74,6 +74,15 @@ class HttpApi {
       msg: string
       data: Context[]
     }>(`/fetchMessage?sessionKey=${this.sessionKey}&count=${count}`)
+    return data
+  }
+
+  async sendFriendMessage(target: number, messageChain: MessageChain) {
+    const { data } = await this.axios.post('/sendFriendMessage', {
+      sessionKey: this.sessionKey,
+      target,
+      messageChain
+    })
     return data
   }
 }

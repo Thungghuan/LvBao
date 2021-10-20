@@ -15,9 +15,11 @@ export type BotConfig = {
 
 export type MessageType = 'message' | 'FriendMessage'
 
+export type SingleMessage = any
+export type MessageChain = SingleMessage[]
 export interface Context {
   type: MessageType
-  messageChain: any[]
+  messageChain: MessageChain
   sender: {
     id: number
     nickname: string

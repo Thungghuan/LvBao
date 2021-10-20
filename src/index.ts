@@ -1,5 +1,11 @@
 import { createAPI } from './http'
-import { BotConfig, MessageType, Context, EventListener } from '../types'
+import {
+  BotConfig,
+  MessageType,
+  Context,
+  EventListener,
+  MessageChain
+} from '../types'
 
 export const createBot = (config: BotConfig) => {
   return new Bot(config)
@@ -42,6 +48,10 @@ class Bot {
       eventName: type,
       handler: cb
     })
+  }
+
+  async send(target: number, messageChain: MessageChain) {
+    await this.api.sendFriendMessage(target, messageChain)
   }
 
   handler(ctx: Context) {
