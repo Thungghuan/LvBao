@@ -15,20 +15,40 @@ export type BotConfig = {
   qq: number
 }
 
+export type MessageType = 'message' | 'FriendMessage'
+
 export const createBot = (config: BotConfig) => {
   return new Bot(config)
+}
+
+export interface Context {
+  type: MessageType
+  messageChain: any[]
+  sender: {
+    id: number
+    nickname: string
+    remark: string
+  }
+}
+
+interface EventListener {
+  eventName: MessageType
+  handler(ctx: any): any
 }
 
 class Bot {
   mirai: {}
   qq: number
+
   api: ReturnType<typeof createAPI>
+  eventListeners: EventListener[]
 
   constructor(config: BotConfig) {
     this.mirai = config
     this.qq = config.qq
 
     this.api = createAPI(config)
+    this.eventListeners = []
   }
 
   async start(cb: () => any = () => {}) {
@@ -45,15 +65,30 @@ class Bot {
 
   async link() {
     await this.api.verify()
-
-    console.log(await this.api.bind())
+    await this.api.bind()
   }
 
-  on() {}
+  on(type: MessageType, cb: (ctx: Context) => any) {
+    this.eventListeners.push({
+      eventName: type,
+      handler: cb
+    })
+  }
+
+  handler(ctx: Context) {
+    this.eventListeners
+      .filter((listener) => listener.eventName === ctx.type)
+      .map((listener) => listener.handler)
+      .forEach((handler) => handler(ctx))
+  }
 
   listen() {
     setInterval(async () => {
-      console.log(await this.api.fetchMessage())
-    }, 3000)
+      const { data } = await this.api.fetchMessage()
+
+      data.forEach((ctx) => {
+        this.handler(ctx)
+      })
+    }, 500)
   }
 }

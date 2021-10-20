@@ -1,4 +1,4 @@
-import { BotConfig, BotSetting } from '..'
+import { BotConfig, BotSetting, Context } from '..'
 import { createAxios } from './axios'
 
 export const createAPI = (config: BotConfig) => {
@@ -68,10 +68,12 @@ class HttpApi {
     return data
   }
 
-  async fetchMessage(count: number = 2) {
-    const { data } = await this.axios.get(
-      `/fetchMessage?sessionKey=${this.sessionKey}&count=${count}`
-    )
+  async fetchMessage(count: number = 10) {
+    const { data } = await this.axios.get<{
+      code: number
+      msg: string
+      data: Context[]
+    }>(`/fetchMessage?sessionKey=${this.sessionKey}&count=${count}`)
     return data
   }
 }

@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "name": "Launch Bot",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "pnpm dev"
+        }
+    ]
+}
