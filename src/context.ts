@@ -1,13 +1,13 @@
-import { Message } from '../types'
+import { BasicMessage } from '../types'
 
-export const createContext = (message: Message) => {
+export const createContext = (message: BasicMessage) => {
   return new Context(message)
 }
 
 export class Context {
-  message: Message
+  message: BasicMessage
 
-  constructor(message: Message) {
+  constructor(message: BasicMessage) {
     this.message = message
   }
 }

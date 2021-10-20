@@ -1,10 +1,5 @@
 import { createAPI } from './http'
-import {
-  BotConfig,
-  MessageType,
-  EventListener,
-  MessageChain
-} from '../types'
+import { BotConfig, MessageType, EventListener, MessageChain } from '../types'
 import { createContext, Context } from './context'
 
 export const createBot = (config: BotConfig) => {
@@ -43,7 +38,7 @@ class Bot {
     await this.api.bind()
   }
 
-  on(type: MessageType, cb: (ctx: Context) => any) {
+  on(type: 'message' | MessageType, cb: (ctx: Context) => any) {
     this.eventListeners.push({
       eventName: type,
       handler: cb
@@ -58,7 +53,8 @@ class Bot {
     this.eventListeners
       .filter(
         (listener) =>
-          listener.eventName === ctx.message.type || listener.eventName === 'message'
+          listener.eventName === ctx.message.type ||
+          listener.eventName === 'message'
       )
       .map((listener) => listener.handler)
       .forEach((handler) => handler(ctx))
