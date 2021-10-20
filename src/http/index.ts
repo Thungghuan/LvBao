@@ -21,8 +21,7 @@ class HttpApi {
     const { host, port } = this.botSetting.adapterSettings.http
 
     this.axios = createAxios({
-      baseURL: `http://${host}:${port || 80}`,
-      proxy: false
+      baseURL: `http://${host}:${port || 80}`
     })
   }
 
