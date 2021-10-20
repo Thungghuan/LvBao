@@ -1,4 +1,5 @@
-import { createBot, BotSetting, BotConfig } from './src'
+import { createBot } from './src'
+import { BotSetting, BotConfig } from './types'
 import config from './config'
 import { loadSetting } from './utils'
 

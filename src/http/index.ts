@@ -1,4 +1,4 @@
-import { BotConfig, BotSetting, Context } from '..'
+import { BotConfig, BotSetting, Context } from '../../types'
 import { createAxios } from './axios'
 
 export const createAPI = (config: BotConfig) => {
