@@ -5,8 +5,7 @@ import { createContext, Context } from './context'
 export const createBot = (config: BotConfig) => {
   return new Bot(config)
 }
-
-class Bot {
+export class Bot {
   mirai: {}
   qq: number
 
@@ -65,7 +64,7 @@ class Bot {
       const { data } = await this.api.fetchMessage()
 
       data.forEach((mes) => {
-        this.handler(createContext(mes))
+        this.handler(createContext(mes, this))
       })
     }, 300)
   }

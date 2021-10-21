@@ -1,4 +1,4 @@
-import { BotConfig, BotSetting, BasicMessage, MessageChain } from '../../types'
+import { BotConfig, BotSetting, MessageChain, Message } from '../../types'
 import { createAxios } from './axios'
 
 export const createAPI = (config: BotConfig) => {
@@ -71,7 +71,7 @@ class HttpApi {
     const { data } = await this.axios.get<{
       code: number
       msg: string
-      data: BasicMessage[]
+      data: Message[]
     }>(`/fetchMessage?sessionKey=${this.sessionKey}&count=${count}`)
     return data
   }

@@ -2,6 +2,7 @@ import { Context } from '../src/context'
 import { MessageType } from './message'
 
 export * from './message'
+export * from './user'
 
 export type BotSetting = {
   verifyKey: string

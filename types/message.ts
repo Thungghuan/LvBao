@@ -92,3 +92,5 @@ export interface GroupMessage extends BasicMessage {
   type: 'GroupMessage'
   sender: User.GroupMember
 }
+
+export type Message = FriendMessage | GroupMessage
