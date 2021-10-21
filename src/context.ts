@@ -27,9 +27,11 @@ export class Context {
     }
   }
 
-  async reply(message: MessageChain) {
+  async reply(messageChain: MessageChain) {
     if (this.messageType === 'FriendMessage') {
-      await this.bot.api.sendFriendMessage(this.from, message)
+      await this.bot.api.sendFriendMessage(this.from, messageChain)
+    } else if (this.messageType === 'GroupMessage') {
+      await this.bot.api.sendGroupMessage(this.group, messageChain)
     }
   }
 }

@@ -77,7 +77,24 @@ class HttpApi {
   }
 
   async sendFriendMessage(target: number, messageChain: MessageChain) {
-    const { data } = await this.axios.post('/sendFriendMessage', {
+    const { data } = await this.axios.post<{
+      code: number
+      msg: string
+      messageId: number
+    }>('/sendFriendMessage', {
+      sessionKey: this.sessionKey,
+      target,
+      messageChain
+    })
+    return data
+  }
+
+  async sendGroupMessage(target: number, messageChain: MessageChain) {
+    const { data } = await this.axios.post<{
+      code: number
+      msg: string
+      messageId: number
+    }>('/sendGroupMessage', {
       sessionKey: this.sessionKey,
       target,
       messageChain

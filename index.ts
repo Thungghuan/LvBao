@@ -15,8 +15,9 @@ const botConfig: BotConfig = {
 
 const bot = createBot(botConfig)
 
-bot.on('FriendMessage', (ctx) => {
-  ctx.reply(ctx.messageChain)
+bot.on('message', async (ctx) => {
+  console.log(ctx.messageChain)
+  await ctx.reply(ctx.messageChain)
 })
 
 bot.start()

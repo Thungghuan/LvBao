@@ -52,7 +52,7 @@ export class Bot {
     this.eventListeners
       .filter(
         (listener) =>
-          listener.eventName === ctx.message.type ||
+          listener.eventName === ctx.messageType ||
           listener.eventName === 'message'
       )
       .map((listener) => listener.handler)
