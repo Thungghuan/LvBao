@@ -47,6 +47,13 @@ export class Bot {
     })
   }
 
+  command(command: string, handler: (ctx: Context) => any) {
+    this.eventListeners.push({
+      eventName: `command:${command}`,
+      handler
+    })
+  }
+
   async send(target: number, messageChain: MessageChain) {
     await this.api.sendFriendMessage(target, messageChain)
   }
@@ -54,13 +61,17 @@ export class Bot {
   handler(ctx: Context) {
     logger.log('info', `Handle message source ${ctx.messageSource!.id}`)
     this.eventListeners
-      .filter(
-        (listener) =>
-          listener.eventName === ctx.messageType ||
-          listener.eventName === 'message'
-      )
-      .map((listener) => listener.handler)
-      .forEach((handler) => handler(ctx))
+      .filter((listener) => {
+        if (ctx.isCommand) {
+          return listener.eventName === ctx.command!.name
+        } else {
+          return (
+            listener.eventName === ctx.messageType ||
+            listener.eventName === 'message'
+          )
+        }
+      })
+      .map((listener) => listener.handler(ctx))
   }
 
   listen() {

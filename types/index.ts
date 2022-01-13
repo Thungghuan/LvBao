@@ -20,6 +20,6 @@ export type BotConfig = {
 }
 
 export interface EventListener {
-  eventName: 'message' | MessageType
+  eventName: 'message' | MessageType | string
   handler(ctx: Context): any
 }
