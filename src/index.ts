@@ -1,6 +1,7 @@
 import { createAPI } from './http'
 import { BotConfig, MessageType, EventListener, MessageChain } from '../types'
 import { createContext, Context } from './context'
+import logger from './logger'
 
 export const createBot = (config: BotConfig) => {
   return new Bot(config)
@@ -18,6 +19,8 @@ export class Bot {
 
     this.api = createAPI(config)
     this.eventListeners = []
+
+    logger.log('info', 'Bot started.')
   }
 
   async start(cb: () => any = () => {}) {
@@ -37,10 +40,10 @@ export class Bot {
     await this.api.bind()
   }
 
-  on(type: 'message' | MessageType, cb: (ctx: Context) => any) {
+  on(type: 'message' | MessageType, handler: (ctx: Context) => any) {
     this.eventListeners.push({
       eventName: type,
-      handler: cb
+      handler
     })
   }
 
