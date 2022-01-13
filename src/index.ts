@@ -52,6 +52,7 @@ export class Bot {
   }
 
   handler(ctx: Context) {
+    logger.log('info', `Handle message source ${ctx.messageSource!.id}`)
     this.eventListeners
       .filter(
         (listener) =>

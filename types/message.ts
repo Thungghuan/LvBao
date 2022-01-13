@@ -72,14 +72,13 @@ interface SingleMessageMap {
 export type SingleMessage = SingleMessageMap[keyof SingleMessageMap]
 
 export type MessageChain = SingleMessage[]
+export type ReceiveMessageChain = [SourceMessage, ...SingleMessage[]]
 
 export type MessageType = 'FriendMessage' | 'GroupMessage'
 
 export interface BasicMessage {
   type: MessageType
-  messageChain: MessageChain & {
-    0: SourceMessage
-  }
+  messageChain: ReceiveMessageChain
   sender: User.Friend | User.GroupMember
 }
 
