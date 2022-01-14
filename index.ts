@@ -18,17 +18,11 @@ const bot = createBot(botConfig)
 bot.on('message', async (ctx) => {
   console.log(ctx.messageChain)
   // await ctx.reply(ctx.messageChain)
-  await ctx.reply([{
-    type: 'Plain',
-    text: 'Not a command'
-  }])
+  await ctx.replyPlainMessage('Not a command')
 })
 
 bot.command('test', async (ctx) => {
-  await ctx.reply([{
-    type: 'Plain',
-    text: 'Command [test] got!'
-  }])
+  await ctx.replyPlainMessage('Command [test] got!')
 })
 
 bot.start()

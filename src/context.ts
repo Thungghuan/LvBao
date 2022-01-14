@@ -77,4 +77,13 @@ export class Context {
       await this.bot.api.sendGroupMessage(this.group, messageChain)
     }
   }
+
+  async replyPlainMessage(message: string) {
+    await this.reply([
+      {
+        type: 'Plain',
+        text: message
+      }
+    ])
+  }
 }

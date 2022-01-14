@@ -58,7 +58,7 @@ export class Bot {
     await this.api.sendFriendMessage(target, messageChain)
   }
 
-  handler(ctx: Context) {
+  async handler(ctx: Context) {
     logger.log('info', `Handle message source ${ctx.messageSource!.id}`)
     const eventHandlers = this.eventListeners.filter((listener) => {
       if (ctx.isCommand) {
@@ -75,12 +75,7 @@ export class Bot {
       // handler for unknown command
       if (ctx.isCommand) {
         const commandName = ctx.command?.name.split(':')[1]
-        ctx.reply([
-          {
-            type: 'Plain',
-            text: `Unknown command: [${commandName}]`
-          }
-        ])
+        await ctx.replyPlainMessage(`Unknown command: [${commandName}]`)
       }
     } else {
       eventHandlers.map((listener) => listener.handler(ctx))
@@ -91,8 +86,8 @@ export class Bot {
     setInterval(async () => {
       const { data } = await this.api.fetchMessage()
 
-      data.forEach((mes) => {
-        this.handler(createContext(mes, this))
+      data.forEach(async (mes) => {
+        await this.handler(createContext(mes, this))
       })
     }, 300)
   }
