@@ -22,7 +22,7 @@ export class Context {
   private message: Message
 
   messageSource: SourceMessage | undefined
-  messageType: MessageType | string
+  messageType: MessageType
   messageChain: MessageChain
   isCommand: boolean = false
   command: Command = null
