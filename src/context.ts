@@ -61,11 +61,9 @@ export class Context {
    *    slash ('/').
    */
   private commandResolver(contentMessageChain: MessageChain) {
-    let commandMessage: SingleMessage[] = []
+    let commandMessage: SingleMessage[] = contentMessageChain
 
-    if (this.messageType === 'FriendMessage') {
-      commandMessage = contentMessageChain.slice(1)
-    } else if (
+    if (
       this.messageType === 'GroupMessage' &&
       contentMessageChain[0].type === 'At' &&
       contentMessageChain[0].target === this.bot.qq
