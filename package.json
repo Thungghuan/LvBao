@@ -4,7 +4,7 @@
   "description": "A QQ bot based on mirai and mirai-ts",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node index.ts"
+    "dev": "ts-node bot/index.ts"
   },
   "repository": {
     "type": "git",

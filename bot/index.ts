@@ -1,7 +1,7 @@
-import { createBot } from './src'
-import { BotSetting, BotConfig } from './types'
-import config from './config'
-import { loadSetting } from './utils'
+import { createBot } from '../src'
+import { BotSetting, BotConfig } from '../types'
+import config from '../config'
+import { loadSetting } from '../utils'
 
 const { qq, settingFile } = config
 
