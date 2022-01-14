@@ -60,18 +60,31 @@ export class Bot {
 
   handler(ctx: Context) {
     logger.log('info', `Handle message source ${ctx.messageSource!.id}`)
-    this.eventListeners
-      .filter((listener) => {
-        if (ctx.isCommand) {
-          return listener.eventName === ctx.command!.name
-        } else {
-          return (
-            listener.eventName === ctx.messageType ||
-            listener.eventName === 'message'
-          )
-        }
-      })
-      .map((listener) => listener.handler(ctx))
+    const eventHandlers = this.eventListeners.filter((listener) => {
+      if (ctx.isCommand) {
+        return listener.eventName === ctx.command!.name
+      } else {
+        return (
+          listener.eventName === ctx.messageType ||
+          listener.eventName === 'message'
+        )
+      }
+    })
+
+    if (eventHandlers.length === 0) {
+      // handler for unknown command
+      if (ctx.isCommand) {
+        const commandName = ctx.command?.name.split(':')[1]
+        ctx.reply([
+          {
+            type: 'Plain',
+            text: `Unknown command: [${commandName}]`
+          }
+        ])
+      }
+    } else {
+      eventHandlers.map((listener) => listener.handler(ctx))
+    }
   }
 
   listen() {
