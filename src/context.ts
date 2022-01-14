@@ -4,7 +4,8 @@ import {
   MessageChain,
   ReceiveMessageChain,
   MessageType,
-  SourceMessage
+  SourceMessage,
+  SingleMessage
 } from '../types'
 
 export const createContext = (message: Message, bot: Bot) => {
@@ -45,29 +46,44 @@ export class Context {
     const [sourceMessage, ...contentMessageChain] = messageChain
     this.messageSource = sourceMessage
 
-    /**
-     * What type of messages will treated as a command?
-     *
-     * 1. A friend message which first content message element in the
-     *    message chain is a palin text begins with a slash ('/').
-     * 2. A group message which first content message element is
-     *    '@[bot-name]' and the second is a plain text begins with a
-     *    slash ('/').
-     */
-
-    if (this.messageType === 'FriendMessage') {
-      const firstMessage = contentMessageChain[0]
-
-      if (firstMessage.type === 'Plain' && /\/(.+)/.test(firstMessage.text)) {
-        this.isCommand = true
-        this.command = {
-          name: `command:${/\/(.+)/.exec(firstMessage.text)![1]}`,
-          arguments: []
-        }
-      }
-    }
+    this.commandResolver(contentMessageChain)
 
     return contentMessageChain
+  }
+
+  /**
+   * What type of messages will treated as a command?
+   *
+   * 1. A friend message which first content message element in the
+   *    message chain is a palin text begins with a slash ('/').
+   * 2. A group message which first content message element is
+   *    '@[bot-name]' and the second is a plain text begins with a
+   *    slash ('/').
+   */
+  private commandResolver(contentMessageChain: MessageChain) {
+    let commandMessage: SingleMessage[] = []
+
+    if (this.messageType === 'FriendMessage') {
+      commandMessage = contentMessageChain.slice(1)
+    } else if (
+      this.messageType === 'GroupMessage' &&
+      contentMessageChain[0].type === 'At' &&
+      contentMessageChain[0].target === this.bot.qq
+    ) {
+      commandMessage = contentMessageChain.slice(1)
+    }
+
+    if (
+      commandMessage[0] &&
+      commandMessage[0].type === 'Plain' &&
+      /\/(.+)/.test(commandMessage[0].text)
+    ) {
+      this.isCommand = true
+      this.command = {
+        name: `command:${/\/(.+)/.exec(commandMessage[0].text)![1]}`,
+        arguments: []
+      }
+    }
   }
 
   async reply(messageChain: MessageChain) {
