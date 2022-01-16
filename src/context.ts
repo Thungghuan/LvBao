@@ -60,6 +60,8 @@ export class Context {
    *    '@[bot-name]' and the second is a plain text begins with a
    *    slash ('/').
    */
+
+  // TODO: add command arguments resolver
   private commandResolver(contentMessageChain: MessageChain) {
     let commandMessage: SingleMessage[] = contentMessageChain
 
