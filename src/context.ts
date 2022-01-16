@@ -1,4 +1,4 @@
-import { Bot } from '.'
+import { Bot } from './bot'
 import {
   Message,
   MessageChain,
