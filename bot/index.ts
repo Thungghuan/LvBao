@@ -2,6 +2,7 @@ import { createBot } from '../src'
 import { BotSetting, BotConfig } from '../types'
 import config from '../config'
 import { loadSetting } from '../utils'
+import timer from '../src/plugins/timer'
 
 const { qq, settingFile } = config
 
@@ -23,5 +24,7 @@ bot.command('test', async (ctx) => {
   console.log(ctx.command)
   await ctx.replyPlainMessage('Command [test] got!')
 })
+
+bot.use(timer)
 
 bot.start()

@@ -3,6 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@types/js-yaml': ^4.0.3
   '@types/node': ^16.10.3
+  '@types/node-cron': ^3.0.1
   '@typescript-eslint/eslint-plugin': ^5.0.0
   '@typescript-eslint/parser': ^5.0.0
   axios: ^0.23.0
@@ -11,12 +12,15 @@ specifiers:
   eslint-plugin-import: ^2.24.0
   eslint-plugin-node: ^11.1.0
   eslint-plugin-promise: ^5.1.0
+  node-cron: ^3.0.0
   ts-node: ^10.3.0
   typescript: ^4.4.4
   winston: ^3.3.3
 
 dependencies:
+  '@types/node-cron': 3.0.1
   axios: 0.23.0
+  node-cron: 3.0.0
   ts-node: 10.3.0_4837b44df871fd426bb731ce8876dc42
   typescript: 4.4.4
   winston: 3.3.3
@@ -134,6 +138,10 @@ packages:
   /@types/json5/0.0.29:
     resolution: {integrity: sha1-7ihweulOEdK4J7y+UnC86n8+ce4=}
     dev: true
+
+  /@types/node-cron/3.0.1:
+    resolution: {integrity: sha512-BkMHHonDT8NJUE/pQ3kr5v2GLDKm5or9btLBoBx4F2MB2cuqYC748LYMDC55VlrLI5qZZv+Qgc3m4P3dBPcmeg==}
+    dev: false
 
   /@types/node/16.11.1:
     resolution: {integrity: sha512-PYGcJHL9mwl1Ek3PLiYgyEKtwTMmkMw4vbiyz/ps3pfdRYLVv+SN7qHVAImrjdAXxgluDEw6Ph4lyv+m9UpRmA==}
@@ -1213,6 +1221,16 @@ packages:
     resolution: {integrity: sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==}
     dev: true
 
+  /moment-timezone/0.5.34:
+    resolution: {integrity: sha512-3zAEHh2hKUs3EXLESx/wsgw6IQdusOT8Bxm3D9UrHPQR7zlMmzwybC8zHEM1tQ4LJwP7fcxrWr8tuBg05fFCbg==}
+    dependencies:
+      moment: 2.29.1
+    dev: false
+
+  /moment/2.29.1:
+    resolution: {integrity: sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==}
+    dev: false
+
   /ms/2.0.0:
     resolution: {integrity: sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=}
     dev: true
@@ -1227,6 +1245,13 @@ packages:
   /natural-compare/1.4.0:
     resolution: {integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=}
     dev: true
+
+  /node-cron/3.0.0:
+    resolution: {integrity: sha512-DDwIvvuCwrNiaU7HEivFDULcaQualDv7KoNlB/UU1wPW0n1tDEmBJKhEIE6DlF2FuoOHcNbLJ8ITL2Iv/3AWmA==}
+    engines: {node: '>=6.0.0'}
+    dependencies:
+      moment-timezone: 0.5.34
+    dev: false
 
   /object-inspect/1.11.0:
     resolution: {integrity: sha512-jp7ikS6Sd3GxQfZJPyH3cjcbJF6GZPClgdV+EFygjFLQ5FmW/dRUnTd9PQ9k0JhoNDabWFbpF1yCdSWCC6gexg==}

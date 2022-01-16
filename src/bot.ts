@@ -36,6 +36,10 @@ export class Bot {
     })
   }
 
+  use(loadPlugin: (bot: Bot, ...args: any) => string, ...args: any) {
+    logger.log('info', `Plugin [${loadPlugin(this, ...args)}] loaded.`)
+  }
+
   on(type: 'message' | MessageType, handler: (ctx: Context) => any) {
     this.eventListeners.push({
       eventName: type,
@@ -52,6 +56,15 @@ export class Bot {
 
   async send(target: number, messageChain: MessageChain) {
     await this.api.sendFriendMessage(target, messageChain)
+  }
+
+  async sendPlainMessage(target: number, message: string) {
+    await this.api.sendFriendMessage(target, [
+      {
+        type: 'Plain',
+        text: message
+      }
+    ])
   }
 
   async handler(ctx: Context) {
