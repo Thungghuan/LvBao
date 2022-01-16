@@ -24,7 +24,8 @@ export class Bot {
   }
 
   async start(cb: () => any = () => {}) {
-    await this.link()
+    await this.api.verify()
+    await this.api.bind()
 
     cb()
 
@@ -33,11 +34,6 @@ export class Bot {
     process.on('exit', () => {
       this.api.release()
     })
-  }
-
-  async link() {
-    await this.api.verify()
-    await this.api.bind()
   }
 
   on(type: 'message' | MessageType, handler: (ctx: Context) => any) {
