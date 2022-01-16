@@ -2,6 +2,7 @@ import { createAPI } from './http'
 import { BotConfig, MessageType, EventListener, MessageChain } from '../types'
 import { createContext, Context } from './context'
 import logger from './logger'
+import hello from './plugins/hello'
 
 export const createBot = (config: BotConfig) => {
   return new Bot(config)
@@ -21,12 +22,14 @@ export class Bot {
     this.eventListeners = []
 
     logger.log('info', 'Bot started.')
+
+    this.use(hello)
   }
 
   async start(cb: () => any = () => {}) {
     await this.api.verify()
     await this.api.bind()
-
+    
     cb()
 
     this.listen()
