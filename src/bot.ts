@@ -78,7 +78,7 @@ export class Bot {
     }
   }
 
-  listen() {
+  private listen() {
     setInterval(async () => {
       const { data } = await this.api.fetchMessage()
 
