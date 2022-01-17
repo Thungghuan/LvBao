@@ -3,11 +3,11 @@ import config from '../../config'
 import schedule from './schedule'
 
 /**
- * Plugin: Timer
+ * ## Plugin: Timer
  * - Alert the owner(master) of bot the time every hour
  * - Based on the schedule plugin
  * 
- * @param bot: Bot instance
+ * @param bot Bot instance
  */
 
 export default (bot: Bot) => {
