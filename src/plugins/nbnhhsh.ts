@@ -12,10 +12,10 @@ import axios from 'axios'
 export default (bot: Bot) => {
   bot.command('nbnhhsh', async (ctx) => {
     if (ctx.command?.arguments?.length === 0) {
-      ctx.replyPlainMessage(`Command [nbnhhsh]
+      ctx.reply(`Command [nbnhhsh]
 Usage: /nbnhhsh <text...>`)
     } else {
-      ctx.replyPlainMessage('翻译中，请稍候……')
+      ctx.reply('翻译中，请稍候……')
       const text = ctx.command?.arguments?.join(',')
 
       try {
@@ -49,9 +49,9 @@ Usage: /nbnhhsh <text...>`)
           })
           .join('\n')
 
-        ctx.replyPlainMessage(message)
+        ctx.reply(message)
       } catch {
-        ctx.replyPlainMessage('翻译失败')
+        ctx.reply('翻译失败')
       }
     }
   })

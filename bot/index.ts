@@ -24,7 +24,7 @@ bot.on('message', async (ctx) => {
 
 // bot.command('*', async (ctx) => {
 //   // console.log(ctx.command)
-//   await ctx.replyPlainMessage(`Command [${ctx.command?.name}] got!
+//   await ctx.reply(`Command [${ctx.command?.name}] got!
 // command name: ${ctx.command?.name}
 // command arguments: ${JSON.stringify(ctx.command?.arguments)}`)
 // })

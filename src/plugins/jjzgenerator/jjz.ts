@@ -12,10 +12,10 @@ import { generate } from './generator'
 export default (bot: Bot) => {
   bot.command('jjz', (ctx) => {
     if (ctx.command?.arguments?.length! < 2) {
-      ctx.replyPlainMessage(`Command [jjz]
+      ctx.reply(`Command [jjz]
 Usage: /jjz <verb> <noun>`)
     } else {
-      ctx.replyPlainMessage(
+      ctx.reply(
         generate(`${ctx.command?.arguments![0]} ${ctx.command?.arguments![1]}`)
       )
     }

@@ -96,20 +96,20 @@ export class Context {
     }
   }
 
-  async reply(messageChain: MessageChain) {
-    if (this.messageType === 'FriendMessage') {
-      await this.bot.api.sendFriendMessage(this.from, messageChain)
-    } else if (this.messageType === 'GroupMessage') {
-      await this.bot.api.sendGroupMessage(this.group, messageChain)
+  async reply(message: string | MessageChain) {
+    if (typeof message === 'string') {
+      message = [
+        {
+          type: 'Plain',
+          text: message
+        }
+      ]
     }
-  }
 
-  async replyPlainMessage(message: string) {
-    await this.reply([
-      {
-        type: 'Plain',
-        text: message
-      }
-    ])
+    if (this.messageType === 'FriendMessage') {
+      await this.bot.api.sendFriendMessage(this.from, message)
+    } else if (this.messageType === 'GroupMessage') {
+      await this.bot.api.sendGroupMessage(this.group, message)
+    }
   }
 }

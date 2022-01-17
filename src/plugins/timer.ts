@@ -15,7 +15,7 @@ export default (bot: Bot) => {
 
   schedule(bot, timerCron, (bot: Bot) => {
     return async () =>
-      await bot.sendPlainMessage(
+      await bot.send(
         config.masterQQ,
         `It's ${new Date().getHours()} o'clock now.`
       )

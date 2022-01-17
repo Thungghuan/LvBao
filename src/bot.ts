@@ -59,17 +59,17 @@ export class Bot {
     })
   }
 
-  async send(target: number, messageChain: MessageChain) {
-    await this.api.sendFriendMessage(target, messageChain)
-  }
+  async send(target: number, message: string | MessageChain) {
+    if (typeof message === 'string') {
+      message = [
+        {
+          type: 'Plain',
+          text: message
+        }
+      ]
+    }
 
-  async sendPlainMessage(target: number, message: string) {
-    await this.api.sendFriendMessage(target, [
-      {
-        type: 'Plain',
-        text: message
-      }
-    ])
+    await this.api.sendFriendMessage(target, message)
   }
 
   async handler(ctx: Context) {
@@ -93,7 +93,7 @@ export class Bot {
       // handler for unknown command
       if (ctx.isCommand) {
         const commandName = ctx.command?.name
-        await ctx.replyPlainMessage(`Unknown command: [${commandName}]`)
+        await ctx.reply(`Unknown command: [${commandName}]`)
       }
     } else {
       eventHandlers.map((listener) => listener.handler(ctx))

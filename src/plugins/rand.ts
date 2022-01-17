@@ -11,12 +11,12 @@ import { Bot } from '../bot'
 export default (bot: Bot) => {
   bot.command('rand', (ctx) => {
     if (ctx.command?.arguments?.length === 0) {
-      ctx.replyPlainMessage(`Command [rand]
+      ctx.reply(`Command [rand]
 Usage: /rand <choice...>`)
     } else {
       const choiceNumber = ctx.command?.arguments?.length!
 
-      ctx.replyPlainMessage(
+      ctx.reply(
         ctx.command!.arguments![Math.floor(Math.random() * choiceNumber)]
       )
     }
