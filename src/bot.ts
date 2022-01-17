@@ -3,6 +3,7 @@ import { BotConfig, MessageType, EventListener, MessageChain } from '../types'
 import { createContext, Context } from './context'
 import logger from './logger'
 import hello from './plugins/hello'
+import rand from './plugins/rand'
 
 export const createBot = (config: BotConfig) => {
   return new Bot(config)
@@ -24,6 +25,7 @@ export class Bot {
     logger.log('info', 'Bot started.')
 
     this.use(hello)
+    this.use(rand)
   }
 
   async start(cb: () => any = () => {}) {
@@ -90,7 +92,7 @@ export class Bot {
     if (eventHandlers.length === 0) {
       // handler for unknown command
       if (ctx.isCommand) {
-        const commandName = ctx.command?.name.split(':')[1]
+        const commandName = ctx.command?.name
         await ctx.replyPlainMessage(`Unknown command: [${commandName}]`)
       }
     } else {
