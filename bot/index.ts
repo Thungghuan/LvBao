@@ -20,10 +20,12 @@ bot.on('message', async (ctx) => {
   console.log(ctx.messageChain)
 })
 
-bot.command('test', async (ctx) => {
-  console.log(ctx.command)
-  await ctx.replyPlainMessage('Command [test] got!')
-})
+// bot.command('*', async (ctx) => {
+//   // console.log(ctx.command)
+//   await ctx.replyPlainMessage(`Command [${ctx.command?.name}] got!
+// command name: ${ctx.command?.name}
+// command arguments: ${JSON.stringify(ctx.command?.arguments)}`)
+// })
 
 bot.use(timer)
 

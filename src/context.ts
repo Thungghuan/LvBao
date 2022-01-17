@@ -60,8 +60,6 @@ export class Context {
    *    '@[bot-name]' and the second is a plain text begins with a
    *    slash ('/').
    */
-
-  // TODO: add command arguments resolver
   private commandResolver(contentMessageChain: MessageChain) {
     let commandMessage: SingleMessage[] = contentMessageChain
 
@@ -76,12 +74,33 @@ export class Context {
     if (
       commandMessage[0] &&
       commandMessage[0].type === 'Plain' &&
-      /\/(.+)/.test(commandMessage[0].text)
+      /^\s*\/(.+)/.test(commandMessage[0].text)
     ) {
       this.isCommand = true
+      let [commandName, ...commandArgs] = commandMessage[0].text
+        .trim()
+        .split(' ')
+        .filter((el) => !!el)
+
+      if (commandMessage.length > 1) {
+        commandMessage.shift()
+
+        commandMessage.forEach((message) => {
+          if (message.type === 'Plain') {
+            commandArgs = [
+              ...commandArgs,
+              ...message.text
+                .trim()
+                .split(' ')
+                .filter((el) => !!el)
+            ]
+          }
+        })
+      }
+
       this.command = {
-        name: `command:${/\/(.+)/.exec(commandMessage[0].text)![1]}`,
-        arguments: []
+        name: /^\s*\/(.+)/.exec(commandName)![1],
+        arguments: commandArgs
       }
     }
   }

@@ -29,7 +29,7 @@ export class Bot {
   async start(cb: () => any = () => {}) {
     await this.api.verify()
     await this.api.bind()
-    
+
     cb()
 
     this.listen()
@@ -52,7 +52,7 @@ export class Bot {
 
   command(command: string, handler: (ctx: Context) => any) {
     this.eventListeners.push({
-      eventName: `command:${command}`,
+      eventName: command === '*' ? '*' : `command:${command}`,
       handler
     })
   }
@@ -72,9 +72,13 @@ export class Bot {
 
   async handler(ctx: Context) {
     logger.log('info', `Handle message source ${ctx.messageSource!.id}`)
+
     const eventHandlers = this.eventListeners.filter((listener) => {
       if (ctx.isCommand) {
-        return listener.eventName === ctx.command!.name
+        return (
+          listener.eventName === '*' ||
+          listener.eventName === `command:${ctx.command!.name}`
+        )
       } else {
         return (
           listener.eventName === ctx.messageType ||
