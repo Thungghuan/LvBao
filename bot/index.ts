@@ -4,6 +4,7 @@ import config from '../config'
 import { loadSetting } from '../utils'
 import timer from '../src/plugins/timer'
 import nbnhhsh from '../src/plugins/nbnhhsh'
+import jjz from '../src/plugins/jjzgenerator/jjz'
 
 const { qq, settingFile } = config
 
@@ -30,5 +31,6 @@ bot.on('message', async (ctx) => {
 
 bot.use(timer)
 bot.use(nbnhhsh)
+bot.use(jjz)
 
 bot.start()
