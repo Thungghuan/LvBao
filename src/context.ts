@@ -54,22 +54,13 @@ export class Context {
   /**
    * What type of messages will treated as a command?
    *
-   * 1. A friend message which first content message element in the
-   *    message chain is a palin text begins with a slash ('/').
-   * 2. A group message which first content message element is
-   *    '@[bot-name]' and the second is a plain text begins with a
-   *    slash ('/').
+   * A friend message or a group message which first content
+   * message element in the message chain is a palin text
+   * begins with a slash ('/').
+   *
    */
   private commandResolver(contentMessageChain: MessageChain) {
     let commandMessage: SingleMessage[] = contentMessageChain
-
-    if (
-      this.messageType === 'GroupMessage' &&
-      contentMessageChain[0].type === 'At' &&
-      contentMessageChain[0].target === this.bot.qq
-    ) {
-      commandMessage = contentMessageChain.slice(1)
-    }
 
     if (
       commandMessage[0] &&
