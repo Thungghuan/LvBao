@@ -13,7 +13,7 @@ export default (bot: Bot) => {
   bot.command('nbnhhsh', async (ctx) => {
     if (ctx.command?.arguments?.length === 0) {
       ctx.replyPlainMessage(`Command [nbnhhsh]
-Usage: /nbnhhsh <text>`)
+Usage: /nbnhhsh <text...>`)
     } else {
       ctx.replyPlainMessage('翻译中，请稍候……')
       const text = ctx.command?.arguments?.join(',')
